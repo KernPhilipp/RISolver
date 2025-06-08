@@ -1,0 +1,18 @@
+# LangChain and Ollama integration
+langchain
+langchain-ollama
+
+# Embeddings and Tokenizer
+tiktoken
+
+# Vector store
+faiss-cpu
+
+# Environment variables
+python-dotenv
+
+# Interactive notebooks
+jupyter
+
+# Testing
+pytest
