@@ -1,18 +1,27 @@
-# LangChain and Ollama integration
-langchain
-langchain-ollama
-
-# Embeddings and Tokenizer
-tiktoken
-
-# Vector store
-faiss-cpu
-
-# Environment variables
+# Environment-Variablen
 python-dotenv
 
-# Interactive notebooks
+# Notebooks
 jupyter
 
 # Testing
 pytest
+
+# HTTP-Client, um API-Aufrufe abzusetzen
+requests
+
+# LangChain als Framework für Text-Splitting, Embeddings-Interfaces und FAISS-Integration
+langchain
+langchain-community
+
+# Lokaler Vektorstore (FAISS) für Embeddings
+faiss-cpu
+
+# Ollama-Python-Client, um Modelle wie DeepSeek r7 lokal anzusprechen
+ollama
+
+# Numpy als Basis-Bibliothek für numerische Vektoren
+numpy
+
+# Elemente aus einer HTML extrahieren
+beautifulsoup4
