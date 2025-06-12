@@ -1,27 +1,8 @@
-# Environment-Variablen
-python-dotenv
-
-# Notebooks
-jupyter
-
-# Testing
-pytest
-
-# HTTP-Client, um API-Aufrufe abzusetzen
-requests
-
-# LangChain als Framework für Text-Splitting, Embeddings-Interfaces und FAISS-Integration
-langchain
-langchain-community
-
-# Lokaler Vektorstore (FAISS) für Embeddings
-faiss-cpu
-
-# Ollama-Python-Client, um Modelle wie DeepSeek r7 lokal anzusprechen
-ollama
-
-# Numpy als Basis-Bibliothek für numerische Vektoren
-numpy
-
-# Elemente aus einer HTML extrahieren
 beautifulsoup4
+faiss-cpu
+jupyter
+langchain
+lxml
+numpy
+ollama
+requests
