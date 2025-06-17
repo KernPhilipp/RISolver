@@ -1,1 +1,5 @@
 venv/
+notebooks/.ipynb_checkpoints/basic_test-checkpoint.py
+notebooks/basic_test.py
+notebooks/faiss_index.faiss/index.faiss
+notebooks/faiss_index.faiss/index.pkl
