@@ -1,8 +1,7 @@
-beautifulsoup4
-faiss-cpu
-jupyter
-langchain
-lxml
-numpy
-ollama
 requests
+numpy
+faiss-cpu
+beautifulsoup4
+pypdf
+langchain
+langchain-ollama
