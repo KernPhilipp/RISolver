@@ -1,7 +1,9 @@
 requests
-numpy
 faiss-cpu
 beautifulsoup4
 pypdf
 langchain
 langchain-ollama
+jupytext
+notebook
+langchain-community
