@@ -19,6 +19,7 @@ from langchain.vectorstores import FAISS
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
+
 print(">>> Alle Bibliotheken importiert und bereit.")
 
 EMBEDDING_MODEL = "nomic-embed-text:latest"
@@ -26,19 +27,21 @@ LLM_MODEL = "gemma3:1b"
 INDEX_PATH = "faiss_index.faiss"
 API_URL = "https://data.bka.gv.at/ris/api/v2.6/Landesrecht"
 
+
 def build_or_load_index():
     print(">>> Building FAISS index, please wait…")
     if os.path.exists(INDEX_PATH):
-        return FAISS.load_local(INDEX_PATH, OllamaEmbeddings(model=EMBEDDING_MODEL))
+        return FAISS.load_local(INDEX_PATH, OllamaEmbeddings(model=EMBEDDING_MODEL),
+                                allow_dangerous_deserialization=True)
     embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
     session = requests.Session()
 
     def extract_pdf_url(ref) -> str | None:
         lrKons = (
             ref.get("Data", {})
-               .get("Metadaten", {})
-               .get("Landesrecht", {})
-               .get("LrKons", {})
+            .get("Metadaten", {})
+            .get("Landesrecht", {})
+            .get("LrKons", {})
         )
         html_url = lrKons.get("GesamteRechtsvorschriftUrl")
         if not html_url:
@@ -122,6 +125,7 @@ def build_or_load_index():
     vector_store.save_local(INDEX_PATH)
     return vector_store
 
+
 PROMPT = PromptTemplate(
     input_variables=["context", "question"],
     template="""
@@ -139,6 +143,7 @@ Bitte beantworte die Frage klar und präzise, erkläre schwierige Begriffe einfa
 """
 )
 
+
 def ask_rag(question: str) -> str:
     idx = build_or_load_index()
     retriever = idx.as_retriever(search_kwargs={"k": 10})
@@ -151,6 +156,7 @@ def ask_rag(question: str) -> str:
     )
     return qa_chain.run(question)
 
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: rag_cli.py \"Deine Frage hier\"", file=sys.stderr)
@@ -158,6 +164,7 @@ def main():
     question = sys.argv[1]
     answer = ask_rag(question)
     print(answer)
+
 
 if __name__ == "__main__":
     main()
