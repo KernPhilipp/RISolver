@@ -19,6 +19,7 @@ from langchain.vectorstores import FAISS
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
+print(">>> Alle Bibliotheken importiert und bereit.")
 
 EMBEDDING_MODEL = "nomic-embed-text:latest"
 LLM_MODEL = "gemma3:1b"
@@ -26,6 +27,7 @@ INDEX_PATH = "faiss_index.faiss"
 API_URL = "https://data.bka.gv.at/ris/api/v2.6/Landesrecht"
 
 def build_or_load_index():
+    print(">>> Building FAISS index, please wait…")
     if os.path.exists(INDEX_PATH):
         return FAISS.load_local(INDEX_PATH, OllamaEmbeddings(model=EMBEDDING_MODEL))
     embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
@@ -90,11 +92,7 @@ def build_or_load_index():
         docs = resp.json()["OgdSearchResult"]["OgdDocumentResults"]["OgdDocumentReference"]
         all_refs.extend(docs if isinstance(docs, list) else [docs])
 
-    pdf_urls = set()
-        for ref in all_refs:
-            url = extract_pdf_url(ref)
-            if url:
-                pdf_urls.add(url)
+    pdf_urls = {u for ref in all_refs if (u := extract_pdf_url(ref))}
 
     all_sections = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
