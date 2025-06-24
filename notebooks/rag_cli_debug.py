@@ -1,6 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore")
-
 import sys
 import os
 import math
@@ -23,12 +20,16 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 
+print(">>> Alle Bibliotheken importiert und bereit.")
+
 EMBEDDING_MODEL = "nomic-embed-text:latest"
 LLM_MODEL = "gemma3:1b"
 INDEX_PATH = "faiss_index.faiss"
 API_URL = "https://data.bka.gv.at/ris/api/v2.6/Landesrecht"
 
+
 def build_or_load_index():
+    print(">>> Building FAISS index, please wait…")
     if os.path.exists(INDEX_PATH):
         return FAISS.load_local(INDEX_PATH, OllamaEmbeddings(model=EMBEDDING_MODEL),
                                 allow_dangerous_deserialization=True)
@@ -161,7 +162,6 @@ def main():
         print("Usage: rag_cli.py \"Deine Frage hier\"", file=sys.stderr)
         sys.exit(1)
     question = sys.argv[1]
-    print(f"[DEBUG] Received question: {question}", file=sys.stderr)
     answer = ask_rag(question)
     print(answer)
 
